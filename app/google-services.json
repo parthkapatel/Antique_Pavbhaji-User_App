@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "474216118928",
+    "firebase_url": "https://antique-pavbhaji.firebaseio.com",
+    "project_id": "antique-pavbhaji",
+    "storage_bucket": "antique-pavbhaji.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:474216118928:android:995f838cd1989c9023f615",
+        "android_client_info": {
+          "package_name": "com.example.antique_pavbhaji"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "474216118928-dl4ij5t7jcv6if5kjop3lis37seld917.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRlXl0RgZ7M1-H9mVIoFo7bD_ez3k8XCM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "474216118928-dl4ij5t7jcv6if5kjop3lis37seld917.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:474216118928:android:80efe2275862b9ee23f615",
+        "android_client_info": {
+          "package_name": "com.parthkapatel.antiquepavbhaji"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "474216118928-dl4ij5t7jcv6if5kjop3lis37seld917.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRlXl0RgZ7M1-H9mVIoFo7bD_ez3k8XCM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "474216118928-dl4ij5t7jcv6if5kjop3lis37seld917.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
