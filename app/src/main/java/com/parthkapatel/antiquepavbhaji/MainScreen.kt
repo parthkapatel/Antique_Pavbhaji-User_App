@@ -28,54 +28,43 @@ class MainScreen : AppCompatActivity() , NavigationView.OnNavigationItemSelected
         setContentView(R.layout.activity_main_screen)
 
         startLoadingDialog()
-        if (myAuth != null) {
-            val query2: Query = FirebaseDatabase.getInstance().reference.child("users/profile/$user/")
-            query2.addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onCancelled(error: DatabaseError) {}
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    if(dataSnapshot.childrenCount > 0){
-                        setFragment(MainScreenFragment())
-                    }else{
-                        setFragment(EditProfileFragment())
-                    }
-                }
-            })
-        }
-        dismissDialog()
         headerNameUpdate()
+        setFragment(MainScreenFragment())
 
-        val tabLayout=findViewById<TabLayout>(R.id.tabLayout)
 
+        val tabLayout= findViewById<TabLayout>(R.id.tabLayout)
         tabLayout.addTab(tabLayout.newTab().setText("Home"))
-        tabLayout.addTab(tabLayout.newTab().setText("Pavbhaji"))
-        tabLayout.addTab(tabLayout.newTab().setText("Pulav"))
-        tabLayout.addTab(tabLayout.newTab().setText("Masala Pav"))
-        tabLayout.tabGravity = TabLayout.GRAVITY_FILL
+        val query2: Query =
+            FirebaseDatabase.getInstance().reference.child("category/").orderByKey()
+        query2.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+            }
 
-        tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener{
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (ds in dataSnapshot.children){
+                    val category_name = ds.child("name").value.toString()
+                    tabLayout.addTab(tabLayout.newTab().setText(category_name))
+                }
+            }
+        })
+        tabLayout.tabGravity = TabLayout.GRAVITY_FILL
+        dismissDialog()
+
+
+        tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
-                when (tab?.position) {
-                    0 -> {
-                        supportFragmentManager.beginTransaction().replace(
-                            R.id.homeframe,
-                            MainScreenFragment()
-                        ).addToBackStack(null).commit()
-                    }
-                    1 -> {
-                        supportFragmentManager.beginTransaction().replace(R.id.homeframe,
-                            ProductDetailsFragment("Pavbhaji")
-                        ).addToBackStack(null).commit()
-                    }
-                    2 -> {
-                        supportFragmentManager.beginTransaction().replace(R.id.homeframe,
-                            ProductDetailsFragment("Pulav")
-                        ).addToBackStack(null).commit()
-                    }
-                    3 -> {
-                        supportFragmentManager.beginTransaction().replace(R.id.homeframe,
-                            ProductDetailsFragment("Masala Pav")
-                        ).addToBackStack(null).commit()
-                    }
+                var tagName: String? = null
+                tagName = tab?.text.toString()
+                if (tagName == "Home") {
+                    supportFragmentManager.beginTransaction().replace(
+                        R.id.homeframe,
+                        MainScreenFragment()
+                    ).addToBackStack(null).commit()
+                } else {
+                    supportFragmentManager.beginTransaction().replace(
+                        R.id.homeframe,
+                        ProductDetailsFragment(tagName!!)
+                    ).addToBackStack(null).commit()
                 }
             }
 
@@ -84,31 +73,21 @@ class MainScreen : AppCompatActivity() , NavigationView.OnNavigationItemSelected
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                when (tab?.position) {
-                    0 -> {
-                        supportFragmentManager.beginTransaction().replace(R.id.homeframe,
-                            MainScreenFragment()
-                        ).addToBackStack(null).commit()
-                    }
-                    1 -> {
-                        supportFragmentManager.beginTransaction().replace(R.id.homeframe,
-                            ProductDetailsFragment("Pavbhaji")
-                        ).addToBackStack(null).commit()
-                    }
-                    2 -> {
-                        supportFragmentManager.beginTransaction().replace(R.id.homeframe,
-                            ProductDetailsFragment("Pulav")
-                        ).addToBackStack(null).commit()
-                    }
-                    3 -> {
-                        supportFragmentManager.beginTransaction().replace(R.id.homeframe,
-                            ProductDetailsFragment("Masala Pav")
-                        ).addToBackStack(null).commit()
-                    }
+
+                var tagName: String? = null
+                tagName = tab?.text.toString()
+                if (tagName == "Home") {
+                    supportFragmentManager.beginTransaction().replace(
+                        R.id.homeframe,
+                        MainScreenFragment()
+                    ).addToBackStack(null).commit()
+                } else {
+                    supportFragmentManager.beginTransaction().replace(
+                        R.id.homeframe,
+                        ProductDetailsFragment(tagName!!)
+                    ).addToBackStack(null).commit()
                 }
-
             }
-
         })
 
         menuImage.setOnClickListener {
@@ -118,7 +97,9 @@ class MainScreen : AppCompatActivity() , NavigationView.OnNavigationItemSelected
         }
 
         cartImage.setOnClickListener {
-            supportFragmentManager.beginTransaction().replace(R.id.homeframe,CartFragment()).addToBackStack(null).commit()
+            supportFragmentManager.beginTransaction().replace(R.id.homeframe, CartFragment()).addToBackStack(
+                null
+            ).commit()
         }
 
      val navigationView : NavigationView = findViewById(R.id.nav_view)
@@ -132,6 +113,7 @@ class MainScreen : AppCompatActivity() , NavigationView.OnNavigationItemSelected
         query2.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
             }
+
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 headerName.text = dataSnapshot.child("name").value.toString()
             }
@@ -144,19 +126,26 @@ class MainScreen : AppCompatActivity() , NavigationView.OnNavigationItemSelected
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val drawer: DrawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
         when (item.itemId) {
-            R.id.nav_home -> supportFragmentManager.beginTransaction().replace(R.id.homeframe,
+            R.id.nav_home -> supportFragmentManager.beginTransaction().replace(
+                R.id.homeframe,
                 MainScreenFragment()
             ).commit()
-            R.id.nav_myaccount -> supportFragmentManager.beginTransaction().replace(R.id.homeframe,
+            R.id.nav_myaccount -> supportFragmentManager.beginTransaction().replace(
+                R.id.homeframe,
                 MyAccountFragment()
             ).addToBackStack(null).commit()
-            R.id.nav_cart -> supportFragmentManager.beginTransaction().replace(R.id.homeframe,
+            R.id.nav_myorder -> supportFragmentManager.beginTransaction().replace(
+                R.id.homeframe,
+                MyorderFragment()
+            ).addToBackStack(null).commit()
+            R.id.nav_cart -> supportFragmentManager.beginTransaction().replace(
+                R.id.homeframe,
                 CartFragment()
             ).addToBackStack(null).commit()
             R.id.nav_logout -> {
                 val myAuth = FirebaseAuth.getInstance()
                 myAuth.signOut()
-                startActivity(Intent(this,Login::class.java))
+                startActivity(Intent(this, Login::class.java))
                 finish()
             }
         }
@@ -173,7 +162,7 @@ class MainScreen : AppCompatActivity() , NavigationView.OnNavigationItemSelected
             super.onBackPressed()
         }
     }
-    private fun setFragment(fragment:Fragment){
+    private fun setFragment(fragment: Fragment){
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.homeframe, fragment)
         fragmentTransaction.commit()

@@ -80,13 +80,35 @@ class MyAccountFragment : Fragment() {
                             dismissDialog()
                         }
                     })
+
+                    val sharedPref: SharedPreferences =
+                        activity?.getSharedPreferences("Login", Context.MODE_PRIVATE) ?: return
+                    val useruid = sharedPref.getString("User_id", "").toString()
+                    val query: Query = FirebaseDatabase.getInstance().getReference("users/order/").orderByChild("order_user_id").equalTo(useruid)
+
+                    query.addValueEventListener(object : ValueEventListener {
+                        var expense = 0
+                        var order = 0
+                        override fun onDataChange(dataSnapshot: DataSnapshot) {
+                            for (ds in dataSnapshot.children) {
+                                expense += Integer.parseInt(ds.child("total").value.toString())
+                               order += 1
+
+                            }
+                            txtmyAccExpense.text = expense.toString()
+                            txtmyAccOrder.text = order.toString()
+                            dismissDialog()
+                        }
+                        override fun onCancelled(error: DatabaseError) {
+                        }
+
+                    })
                 }
 
         btnMyAccedtpr.setOnClickListener {
-            val manager: FragmentManager = (context as AppCompatActivity).supportFragmentManager
-            val fragmentTransaction = manager.beginTransaction()
-            fragmentTransaction.replace(R.id.homeframe, EditProfileFragment()).addToBackStack(null)
-            fragmentTransaction.commit()
+
+            startActivity(Intent(context,EditProfile::class.java))
+
         }
         BtnMyAccedtRmv.setOnClickListener {it->
             //startLoadingDialog()

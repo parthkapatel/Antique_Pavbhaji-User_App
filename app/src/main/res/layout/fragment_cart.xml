@@ -71,7 +71,7 @@
                 android:layout_marginRight="15dp"
                 android:background="@drawable/btn_rounded_background"
                 android:padding="10dp"
-                android:text="@string/checkout"
+                android:text="@string/cnt"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
                 android:textSize="19sp" />

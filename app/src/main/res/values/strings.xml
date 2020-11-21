@@ -12,6 +12,7 @@
     <string name="action_settings">Settings</string>
     <string name="action_Search">Search</string>
     <string name="action_cart">My Cart</string>
+    <string name="action_myorder">My Order</string>
     <string name="action_logout">Logout</string>
 
     <string name="menu_home">Home</string>
@@ -26,6 +27,24 @@
     <string name="plus">Plus</string>
     <string name="total">Total</string>
     <string name="checkout">Checkout</string>
-
+    <string name="cnt">Continue</string>
+    <string name="confirm_order">Confirm Order</string>
     <string name="Rs">\u20B9</string>
+    <string name="add_new_address">Add New Address</string>
+    <string name="lblconfirm_order">Confirm Order</string>
+    <string name="btn_change_address">Change Address</string>
+    <string name="checkout_back_content">Back</string>
+    <string name="cod">Cash On Delivery</string>
+    <string name="card">Credit Card/Debit Card</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="net">Net Banking</string>
+    <string name="googlepay">Google Pay</string>
+    <string name="place_order">Place Order</string>
+    <string name="payment_option">Payment Method</string>
+    <string name="placeon">Place On</string>
+    <string name="deliverto">Deliver To</string>
+    <string name="status">Status</string>
+    <string name="order_id">Order Id</string>
+    <string name="view_details">View Details</string>
+    <string name="phone_number">Phone Number</string>
 </resources>

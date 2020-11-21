@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/payment_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:contentDescription="@string/checkout_back_content"
+                android:scaleType="fitCenter"
+                android:src="@drawable/back_arrow" />
+
+            <TextView
+                android:id="@+id/lblpohead"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bell_mt_bold"
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:text="@string/payment_option"
+                android:textSize="23sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="5dp"
+                app:contentPadding="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/bell_mt_bold"
+                            android:text="@string/payment_method"
+                            android:textColor="#222121"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <RadioGroup
+                            android:id="@+id/rdbtngroup"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:checkedButton="@id/rdbtnCOD"
+                            android:layoutDirection="rtl"
+                            android:padding="5dp">
+
+
+                            <RadioButton
+                                android:id="@+id/rdbtnCOD"
+                                style="@style/Widget.AppCompat.CompoundButton.RadioButton"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="5dp"
+                                android:buttonTint="#2874F0"
+                                android:fontFamily="@font/bell_mt_bold"
+                                android:text="@string/cod"
+                                android:textColor="#4B4C4E"
+                                android:textSize="20sp">
+
+                            </RadioButton>
+
+
+                            <RadioButton
+                                android:id="@+id/rdbtnCard"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="5dp"
+                                android:buttonTint="#2874F0"
+                                android:checked="false"
+                                android:fontFamily="@font/bell_mt_bold"
+                                android:text="@string/card"
+                                android:textColor="#FF4B4C4E"
+                                android:textSize="20sp" />
+
+                            <RadioButton
+                                android:id="@+id/rdbtnNet"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="5dp"
+                                android:buttonTint="#2874F0"
+                                android:checked="false"
+                                android:fontFamily="@font/bell_mt_bold"
+                                android:text="@string/net"
+                                android:textColor="#FF4B4C4E"
+                                android:textSize="20sp" />
+
+                            <RadioButton
+                                android:id="@+id/rdbtnGooglepay"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="5dp"
+                                android:buttonTint="#2874F0"
+                                android:checked="false"
+                                android:fontFamily="@font/bell_mt_bold"
+                                android:text="@string/googlepay"
+                                android:textColor="#FF4B4C4E"
+                                android:textSize="20sp">
+
+                            </RadioButton>
+
+                        </RadioGroup>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"></LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <Button
+                android:id="@+id/btnorderplace"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#FFA500"
+                android:fontFamily="@font/bell_mt"
+                android:text="@string/place_order"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

@@ -6,17 +6,15 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_cart.*
 
@@ -51,6 +49,9 @@ class CartFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        var itemName = ""
+        var itemQty = ""
+        var itemRs = ""
 
         val cartRecycler = activity?.findViewById<RecyclerView>(R.id.cartRecyclerID)
         val bbt = AnimationUtils.loadAnimation(context,R.anim.rtl)
@@ -75,17 +76,48 @@ class CartFragment : Fragment() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 var totalcartrs : Int = 0
                 arrayList1.clear()
-                for (ds in dataSnapshot.children) {
-                    arrayList1.add(ds.getValue(add_cart::class.java)!!)
-                    val rs = ds.child("cart_item_amount").value.toString()
-                    val qty = ds.child("cart_item_qty").value.toString()
-                    val mul = rs.toInt() * qty.toInt()
-                    totalcartrs +=  mul
-                    totalprice?.text = "₹$totalcartrs"
-                }
-                cartRecycler?.adapter?.notifyDataSetChanged()
-                cartRecycler?.adapter=ad
-                dismissDialog()
+                var itemName1 = ""
+                var itemQty1 = ""
+                var itemRs1 = ""
+              /*  if(dataSnapshot.childrenCount.toString() == "0"){
+                    cart_nodata_image.visibility = View.VISIBLE
+                    cart_linearlayout.visibility = View.INVISIBLE
+                    cart_framelayout.visibility = View.INVISIBLE
+                    dismissDialog()
+                }else{*/
+
+
+
+                    for (ds in dataSnapshot.children) {
+                        arrayList1.add(ds.getValue(add_cart::class.java)!!)
+                        val rs = ds.child("cart_item_amount").value.toString()
+                        val qty = ds.child("cart_item_qty").value.toString()
+                        val mul = rs.toInt() * qty.toInt()
+                        totalcartrs +=  mul
+                        totalprice?.text = "₹$totalcartrs"
+
+                        val itemname = ds.child("cart_item_name").value.toString()
+
+                        if(itemName1 == "" && itemQty1 == "" && itemRs1 == ""){
+                            itemName1 = itemname
+                            itemQty1 = qty
+                            itemRs1 = rs
+                        }else if(itemName1 != "" && itemQty1 != "" && itemRs1 != ""){
+                            itemName1 = "$itemName1&$itemname"
+                            itemQty1 = "$itemQty1&$qty"
+                            itemRs1 = "$itemRs1&$rs"
+                        }
+
+
+
+                    }
+                        itemName = itemName1
+                        itemQty = itemQty1
+                        itemRs = itemRs1
+                    cartRecycler?.adapter?.notifyDataSetChanged()
+                    cartRecycler?.adapter=ad
+                    dismissDialog()
+               // }
             }
             override fun onCancelled(error: DatabaseError) {
             }
@@ -93,24 +125,11 @@ class CartFragment : Fragment() {
         })
 
         btnCartCheckout.setOnClickListener {
-            startActivity(Intent(context,Checkout_order::class.java))
-            //Snackbar.make(it,"Clicked",Snackbar.LENGTH_LONG).setAction("Action", null).show()
-            /*myRef.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    var totalcartrs : Int = 0
-                    for (ds in dataSnapshot.children) {
-
-                        val rs = ds.child("cart_item_amount").value.toString()
-                        val qty = ds.child("cart_item_qty").value.toString()
-                        val mul = rs.toInt() * qty.toInt()
-                        totalcartrs +=  mul
-                        totalprice?.text = "₹$totalcartrs"
-                    }
-                }
-                override fun onCancelled(error: DatabaseError) {
-                }
-
-            })*/
+            val intent = Intent(context, Add_address::class.java)
+            intent.putExtra("itemName", itemName)
+            intent.putExtra("itemQty", itemQty)
+            intent.putExtra("itemRs", itemRs)
+            startActivity(intent)
         }
     }
 

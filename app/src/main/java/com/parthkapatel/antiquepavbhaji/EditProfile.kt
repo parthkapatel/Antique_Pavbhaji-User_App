@@ -1,57 +1,28 @@
 package com.parthkapatel.antiquepavbhaji
 
-import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.PointerIcon
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.fragment_edit_profile.*
-import kotlinx.android.synthetic.main.nav_header_main.*
+import kotlinx.android.synthetic.main.activity_edit_profile.*
 
-
-class EditProfileFragment : Fragment(){
-
+class EditProfile : AppCompatActivity() {
 
     private lateinit var dialog : AlertDialog
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-
-        }
-    }
     private val myAuth =  FirebaseAuth.getInstance().currentUser
     var user = myAuth?.phoneNumber?.substring(3).toString()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_edit_profile, container, false)
-    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_edit_profile)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        //Hide Cart Image And CartBadge
-        var cartimage = activity?.findViewById<ImageView>(R.id.cartImage)
-        var cartimagebadge = activity?.findViewById<TextView>(R.id.counterbadgeCart)
-        if (cartimage != null) {
-            cartimage.visibility = View.INVISIBLE
-            if (cartimagebadge != null) {
-                cartimagebadge.visibility = View.INVISIBLE
-            }
-        }
 
         var myAuth = FirebaseAuth.getInstance().currentUser
         if (myAuth != null) {
@@ -80,7 +51,8 @@ class EditProfileFragment : Fragment(){
         })
         txtEdtPhone.setText(user)
 
-        btnEdtUpdate.setOnClickListener {
+
+        btnEdtUpdate.setOnClickListener {view->
             startLoadingDialog()
             var name = txtEdtName.text.toString()
             var email = txtEdtEmail.text.toString()
@@ -102,7 +74,7 @@ class EditProfileFragment : Fragment(){
                     "Profile Update Successfully",
                     Snackbar.LENGTH_LONG
                 ).setAction("Action", null).show()
-               startActivity(Intent(context,MainScreen::class.java))
+                startActivity(Intent(this,MainScreen::class.java))
             } else {
                 val key = myRef.push().key
                 var myRef2: DatabaseReference =
@@ -117,10 +89,7 @@ class EditProfileFragment : Fragment(){
                         "Profile Saved Successfully",
                         Snackbar.LENGTH_LONG
                     ).setAction("Action", null).show()
-                   val manager: FragmentManager = (context as AppCompatActivity).supportFragmentManager
-                    val fragmentTransaction = manager.beginTransaction()
-                    fragmentTransaction.replace(R.id.homeframe, MainScreenFragment()).addToBackStack(null)
-                    fragmentTransaction.commit()
+                    startActivity(Intent(this,MainScreen::class.java))
                 }.addOnCanceledListener {
                     dismissDialog()
                     Snackbar.make(
@@ -131,11 +100,11 @@ class EditProfileFragment : Fragment(){
                 }
             }
         }
+
     }
 
-
     private fun startLoadingDialog(){
-        var builder = AlertDialog.Builder(context)
+        var builder = AlertDialog.Builder(this)
         val inflater : LayoutInflater = this.layoutInflater
         builder.setView(inflater.inflate(R.layout.custom_dialog_progressbar, null))
         builder.setCancelable(false)
@@ -146,6 +115,4 @@ class EditProfileFragment : Fragment(){
     fun dismissDialog() {
         dialog.dismiss()
     }
-
-
 }

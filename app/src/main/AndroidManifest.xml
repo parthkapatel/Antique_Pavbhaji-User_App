@@ -13,16 +13,19 @@
         android:roundIcon="@mipmap/antique_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Checkout_order"></activity>
-        <activity android:name=".MainScreen">
+        <activity android:name=".EditProfile" />
+        <activity android:name=".payment_option" />
+        <activity android:name=".Add_address" />
+        <activity android:name=".Confirm_order" />
+        <activity android:name=".MainScreen"/>
+        <activity android:name=".Login" />
+        <activity android:name=".MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Login"></activity>
-        <activity android:name=".MainActivity"></activity>
 
         <meta-data
             android:name="preloaded_fonts"

@@ -150,9 +150,18 @@ class Login : AppCompatActivity() {
                             var edt:SharedPreferences.Editor=sharedPref.edit()
                             edt.putString("User_id", userid)
                             edt.commit()
-                            dismissDialog()
-                            startActivity(Intent(this@Login, MainScreen::class.java))
-                            finish()
+                            if(ds.hasChildren())
+                            {
+                                dismissDialog()
+                                startActivity(Intent(this@Login, MainScreen::class.java))
+                                finish()
+                            }else{
+                                dismissDialog()
+                                startActivity(Intent(this@Login, EditProfile::class.java))
+                                finish()
+                            }
+
+
                         }
                     })
                 }

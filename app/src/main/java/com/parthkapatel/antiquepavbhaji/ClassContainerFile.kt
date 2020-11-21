@@ -18,7 +18,9 @@ import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.cart_details_row.view.*
 import kotlinx.android.synthetic.main.home_menu_row.view.*
+import kotlinx.android.synthetic.main.myorder_data_row.view.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 data class add_user(var user_UID:String,var name:String,var address:String,var email:String,var phone:String){
@@ -35,6 +37,10 @@ data class add_category(var name:String,var image_path:String){
 
 data class add_cart(var cart_Uid:String,var cart_User_Uid:String,var cart_item_Uid:String,var cart_cat_name:String,var cart_item_name:String,var cart_item_amount:String,var cart_item_qty:String){
     constructor() :this("","","","","","","")
+}
+
+data class add_place_order(var order_id:String,var order_user_id:String,var payment_method:String,var name:String,var delivery_address:String,var item_array:String,var item_qty_array:String,var item_rs_array:String,var total:String,var status:String,var date:String,var time:String){
+    constructor():this("","","","","","","","","","","","")
 }
 
 class Add_Category_adapter(private val arrayList: ArrayList<add_category>, val context: Context) :
@@ -238,6 +244,59 @@ class Add_Cart_adapter(private val arrayList1: ArrayList<add_cart>, val context:
             }
         }
     }
+
+class Add_MyOrder_adapter(private val arrayList1: ArrayList<add_place_order>, val context: Context) :
+    RecyclerView.Adapter<Add_MyOrder_adapter.ViewHolder>() {
+
+
+    open class ViewHolder(item_view: View) : RecyclerView.ViewHolder(item_view) {
+        @RequiresApi(Build.VERSION_CODES.O)
+        fun bindItems(addPlaceOrder: add_place_order) {
+
+            val orderid = addPlaceOrder.order_id
+
+            val myRef: Query = FirebaseDatabase.getInstance().getReference("users/order/$orderid")
+            myRef.addValueEventListener(object : ValueEventListener {
+                override fun onCancelled(error: DatabaseError) {
+                }
+
+                override fun onDataChange(ds: DataSnapshot) {
+                    itemView.txtOrderId.text = ds.child("order_id").value.toString()
+                    val date = ds.child("date").value.toString()
+                    val time = ds.child("time").value.toString()
+                    itemView.txtOrderPlaceOn.text = date + " "+time
+                    itemView.txtOrderDeliverTo.text = ds.child("name").value.toString()
+                    itemView.txtOrderTotal.text = ds.child("total").value.toString()
+                    itemView.txtOrderStatus.text = ds.child("status").value.toString()
+                }
+            })
+        }
+
+
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val v =
+            LayoutInflater.from(parent.context).inflate(R.layout.myorder_data_row, parent, false)
+        return ViewHolder(v)
+    }
+
+    override fun getItemCount(): Int {
+        return arrayList1.size
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bindItems(arrayList1[position])
+
+
+    }
+}
+
+
+
+
+
 
 
 

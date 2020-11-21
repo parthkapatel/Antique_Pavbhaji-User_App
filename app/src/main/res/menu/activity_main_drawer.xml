@@ -16,11 +16,15 @@
             android:id="@+id/nav_cart"
             android:title="@string/action_cart"
             android:icon="@drawable/ic_shopping_24"/>
-
         <item
+            android:id="@+id/nav_myorder"
+            android:title="@string/action_myorder"
+            android:icon="@drawable/my_order" />
+
+       <!-- <item
             android:id="@+id/nav_settings"
             android:title="@string/action_settings"
-            android:icon="@drawable/ic_settings" />
+            android:icon="@drawable/ic_settings" />-->
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_logout"

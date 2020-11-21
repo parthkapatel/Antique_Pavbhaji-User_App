@@ -102,8 +102,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#8B0000"
-                app:tabIndicatorColor="#FFFFFF"
+                app:tabGravity="center"
+                app:tabIndicatorColor="#3F51B5"
+                app:tabIndicatorGravity="center"
                 app:tabIndicatorHeight="0dp"
+                app:tabInlineLabel="false"
+                app:tabMode="scrollable"
+                app:tabRippleColor="#9C27B0"
+                app:tabSelectedTextColor="#0AF4A3"
                 app:tabTextColor="@android:color/background_light">
 
             </com.google.android.material.tabs.TabLayout>

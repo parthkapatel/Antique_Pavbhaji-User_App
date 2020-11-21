@@ -16,11 +16,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         myAuth = FirebaseAuth.getInstance()
-       /* Handler().postDelayed(
-            {
-                startActivity(Intent(this,Login::class.java))
-                finish()
-            },3000)*/
+
 
     }
 

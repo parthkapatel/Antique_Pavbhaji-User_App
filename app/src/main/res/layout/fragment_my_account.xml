@@ -64,11 +64,11 @@
                             android:textSize="20sp" />
 
                         <TextView
+                            android:id="@+id/txtmyAccOrder"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/bell_mt_bold"
                             android:paddingTop="10dp"
-                            android:text="125"
                             android:textColor="@color/startblue"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -90,11 +90,11 @@
                             android:textSize="20sp" />
 
                         <TextView
+                            android:id="@+id/txtmyAccExpense"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/bell_mt_bold"
                             android:paddingTop="10dp"
-                            android:text="1205"
                             android:textColor="@color/startblue"
                             android:textSize="20sp"
                             android:textStyle="bold" />
